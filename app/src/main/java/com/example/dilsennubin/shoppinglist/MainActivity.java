@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 
@@ -56,17 +54,5 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, AddNewItem.class);
         startActivityForResult(i, 0);
     }
-
-//    public void deleteProduct(View v) {
-//        ImageButton deleteButton = (ImageButton) v.findViewById(R.id.deleteButton);
-//        Integer deleteButtonId = deleteButton.getId();
-//        Product deletedProduct = myProductsList.get(deleteButtonId);
-//        myProductsList.remove(deletedProduct);
-//        adapter.notifyDataSetChanged();
-//        myDataBase.removeProductsFromDB(deleteButtonId);
-//        myDataBase.close();
-//
-//    }
-
 
 }

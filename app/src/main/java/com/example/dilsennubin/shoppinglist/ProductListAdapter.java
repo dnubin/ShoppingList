@@ -20,7 +20,6 @@ public class ProductListAdapter extends BaseAdapter {
     private Context myContext;
     private List<Product> myProductsList;
 
-
     public ProductListAdapter(Context myContext, List<Product> myProductsList) {
         this.myContext = myContext;
         this.myProductsList = myProductsList;
@@ -60,6 +59,7 @@ public class ProductListAdapter extends BaseAdapter {
 
         productName.setText(myProductsList.get(position).getProductName());
         quantity.setText(String.valueOf(myProductsList.get(position).getQuantity()));
+
         checkBox.setChecked(myProductsList.get(position).isChecked());
         if (checkBox.isChecked()) {
             productName.setTextColor(Color.GRAY);

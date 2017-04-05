@@ -68,11 +68,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     product.setProductName(cursor.getString(1));
                     product.setQuantity(cursor.getString(2));
                     boolean checked;
-                    if (cursor.getString(3).equals("1")) {
-                        checked = true;
-                    } else {
-                        checked = false;
-                    }
+                    checked = cursor.getString(3).equals("1");
                     product.setChecked(checked);
 
                     productsList.add(product);
@@ -90,15 +86,6 @@ public class DBHandler extends SQLiteOpenHelper {
             db.close();
         }
         return productsList;
-    }
-
-
-    public void removeProductsFromDB(int id) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String deleteQuery = "DELETE FROM TABLE_PRODUCTS WHERE COLUMN_ID = \"" + id + "\"";
-        db.execSQL(deleteQuery);
-
     }
 
 }
