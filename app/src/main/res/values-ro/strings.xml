@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lista de cumparaturi</string>
+    <string name="title_activity_add_item">Adauga produs</string>
+    <string name="title_activity_add_new_item">AdaugaUnProdusNou</string>
+    <string name="type_product_name">Scrie numele produsului</string>
+    <string name="quantity">Cantitate:</string>
+    <string name="add_item_to_list">Adauga produsul in lista</string>
+    <string name="add">Adauga</string>
+</resources>

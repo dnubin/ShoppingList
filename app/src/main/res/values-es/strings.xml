@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lista de Compras</string>
+    <string name="title_activity_add_item">Añadir artículo</string>
+    <string name="title_activity_add_new_item">AñadirNuevoArtículo</string>
+    <string name="type_product_name">Escriba el nombre del producto</string>
+    <string name="quantity">Cantidad:</string>
+    <string name="add_item_to_list">Añadir elemento a la lista</string>
+    <string name="add">Añadir</string>
+</resources>
