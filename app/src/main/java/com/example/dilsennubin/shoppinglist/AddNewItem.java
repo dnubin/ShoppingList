@@ -1,9 +1,6 @@
 package com.example.dilsennubin.shoppinglist;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,8 +8,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.UUID;
 
 public class AddNewItem extends AppCompatActivity {
+
+    private DBHandler myDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +37,13 @@ public class AddNewItem extends AppCompatActivity {
 
     public void addItemToList(View view) {
 
+        myDataBase = new DBHandler(this);
+        myDataBase.getWritableDatabase();
+
         EditText productNameInput  = (EditText) findViewById(R.id.productNameInput);
         EditText quantityInput = (EditText) findViewById(R.id.quantityInput);
 
+        String id = UUID.randomUUID().toString();
         String newProductName = productNameInput.getText().toString();
         String newQuantity = quantityInput.getText().toString();
 
@@ -50,7 +54,8 @@ public class AddNewItem extends AppCompatActivity {
         if (newProductName.equals("")) {
             Toast.makeText(getApplicationContext(), "Please add a product", Toast.LENGTH_LONG).show();
         } else {
-            setResult(Activity.RESULT_OK, new Intent().putExtra("newTypedProductName", newProductName).putExtra("newTypedQuantity", newQuantity));
+            Product newProduct = new Product(id, newProductName, newQuantity, false);
+            myDataBase.addProductToDB(newProduct);
 
             View view1 = this.getCurrentFocus();
             if (view1 != null) {

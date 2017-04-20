@@ -1,15 +1,12 @@
 package com.example.dilsennubin.shoppinglist;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-
-
 import java.util.List;
-import java.util.UUID;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,36 +20,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        openAndGetDataFromDataBase();
+        displayProductsFromDataBase();
+        myDataBase.close();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        openAndGetDataFromDataBase();
+        displayProductsFromDataBase();
+        myDataBase.close();
+    }
+
+    public void addButtonClicked(View view) {
+        Intent i = new Intent(this, AddNewItem.class);
+        startActivity(i);
+    }
+
+    private void openAndGetDataFromDataBase() {
         myDataBase = new DBHandler(this);
         myDataBase.getWritableDatabase();
         myProductsList = myDataBase.getProductsFromDB();
+    }
+
+    private void displayProductsFromDataBase() {
         adapter = new ProductListAdapter(getApplicationContext(), myProductsList);
         productsListView = (ListView) findViewById(R.id.shopList);
         if (productsListView != null) {
             productsListView.setAdapter(adapter);
         }
-        myDataBase.close();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0 &&  resultCode == Activity.RESULT_OK) {
-            String newProductName = data.getStringExtra("newTypedProductName");
-            String newQuantity = data.getStringExtra("newTypedQuantity");
-            String id = UUID.randomUUID().toString();
-
-            Product newProduct = new Product(id, newProductName, newQuantity, false);
-            myProductsList.add(newProduct);
-            myDataBase.addProductToDB(newProduct);
-            adapter.notifyDataSetChanged();
-            productsListView.setSelection(adapter.getCount() - 1);
-            myDataBase.close();
-        }
-    }
-
-    public void addButtonClicked(View view) {
-        Intent i = new Intent(this, AddNewItem.class);
-        startActivityForResult(i, 0);
-    }
 
 }
