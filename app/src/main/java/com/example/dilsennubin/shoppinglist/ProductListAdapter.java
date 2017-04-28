@@ -1,8 +1,6 @@
 package com.example.dilsennubin.shoppinglist;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +17,7 @@ public class ProductListAdapter extends BaseAdapter {
 
     private Context myContext;
     private List<Product> myProductsList;
+    private DBHandler db;
 
     public ProductListAdapter(Context myContext, List<Product> myProductsList) {
         this.myContext = myContext;
@@ -44,11 +43,8 @@ public class ProductListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final View v = View.inflate(myContext, R.layout.custom_row, null);
         v.setTag(myProductsList.get(position).getId());
-
         final TextView productName = (TextView) v.findViewById(R.id.productNameTextView);
-
-        System.out.println("dupa ce ref text view max nr lines este: " + productName.getMaxLines());
-
+        productName.setTag(position);
         final TextView quantity = (TextView) v.findViewById(R.id.quantityTextView);
         quantity.setTag(position);
         final CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
@@ -75,12 +71,10 @@ public class ProductListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Integer index = (Integer) v.getTag();
-
-                    SQLiteDatabase myDB = myContext.openOrCreateDatabase("myProducts.db", Context.MODE_PRIVATE, null);
-                    String id = myProductsList.get(index).getId();
-                    myDB.execSQL("DELETE FROM products WHERE id = \"" + id + "\"");
-                    myDB.close();
-
+                    db = new DBHandler(myContext);
+                    db.getWritableDatabase();
+                    db.deleteProduct(myProductsList.get(index).getId());
+                    db.close();
                     myProductsList.remove(index.intValue());
                     notifyDataSetChanged();
                 }
@@ -91,13 +85,15 @@ public class ProductListAdapter extends BaseAdapter {
             new CheckBox.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    db = new DBHandler(myContext);
+                    db.getWritableDatabase();
                     if (checkBox.isChecked()) {
                         Integer index = (Integer) checkBox.getTag();
                         myProductsList.get(index).setChecked(true);
                         productName.setTextColor(Color.GRAY);
                         quantity.setTextColor(Color.GRAY);
 
-                        updateDataBase(index);
+                        db.updateDataBase(myProductsList.get(index));
                     }
                     else {
                         Integer index = (Integer) checkBox.getTag();
@@ -105,34 +101,17 @@ public class ProductListAdapter extends BaseAdapter {
                         productName.setTextColor(Color.parseColor("#ff009688"));
                         quantity.setTextColor(Color.parseColor("#ff009688"));
 
-                        updateDataBase(index);
+                        db.updateDataBase(myProductsList.get(index));
                     }
+                    db.close();
                 }
             });
 
 
-        productName.setOnClickListener(new View.OnClickListener() {
-            boolean isTextViewClicked = false;
+        productName.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                System.out.println("clikced on products: " + productName.getText());
-                System.out.println("max number of lines: " + productName.getMaxLines());
-                System.out.println("is text view clicked " + isTextViewClicked);
-
-                if(isTextViewClicked){
-                    System.out.println("am intrat pe if ");
-                    productName.setMaxLines(1);
-                    System.out.println("dupa if noul max mr of lines " + productName.getMaxLines());
-                    productName.setSingleLine(true);
-                    isTextViewClicked = false;
-                } else {
-                    System.out.println("am intrat pe else ");
-                    productName.setMaxLines(3);
-                    System.out.println("dupa else noul max mr of lines " + productName.getMaxLines());
-                    productName.setSingleLine(false);
-                    isTextViewClicked = true;
-                }
+                productName.setSingleLine(false);
                 notifyDataSetChanged();
             }
         });
@@ -140,18 +119,5 @@ public class ProductListAdapter extends BaseAdapter {
          return v;
     }
 
-    public void updateDataBase(Integer index) {
-        SQLiteDatabase myDB = myContext.openOrCreateDatabase("myProducts.db", Context.MODE_PRIVATE, null);
-        ContentValues values = new ContentValues();
-        values.put("id", myProductsList.get(index).getId());
-        values.put("productName", myProductsList.get(index).getProductName());
-        values.put("quantity", myProductsList.get(index).getQuantity());
-        values.put("isChecked", myProductsList.get(index).isChecked());
 
-        String where = "id=?";
-        String[] whereArgs = new String[] {String.valueOf(myProductsList.get(index).getId())};
-        myDB.update("products", values, where, whereArgs);
-
-        myDB.close();
-    }
 }

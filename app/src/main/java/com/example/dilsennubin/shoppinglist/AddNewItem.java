@@ -1,5 +1,4 @@
 package com.example.dilsennubin.shoppinglist;
-
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import java.util.UUID;
 
 public class AddNewItem extends AppCompatActivity {
 
-    private DBHandler myDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,7 @@ public class AddNewItem extends AppCompatActivity {
 
     public void addItemToList(View view) {
 
-        myDataBase = new DBHandler(this);
+        DBHandler myDataBase = new DBHandler(this);
         myDataBase.getWritableDatabase();
 
         EditText productNameInput  = (EditText) findViewById(R.id.productNameInput);
@@ -81,16 +79,6 @@ public class AddNewItem extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

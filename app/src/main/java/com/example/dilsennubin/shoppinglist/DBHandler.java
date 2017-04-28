@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
 import android.util.Log;
-
 import java.util.ArrayList;
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -87,5 +86,24 @@ public class DBHandler extends SQLiteOpenHelper {
         }
         return productsList;
     }
+
+    public int updateDataBase(Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, product.getId());
+        values.put(COLUMN_PRODUCT_NAME, product.getProductName());
+        values.put(COLUMN_QUANTITY, product.getQuantity());
+        values.put(COLUMN_IS_CHECKED, product.isChecked());
+
+        return db.update("products", values, "id" + " = ?", new String[] { product.getId() });
+    }
+
+    public void deleteProduct(String id) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        String deleteQuery = "DELETE FROM products where id='"+ id +"'";
+
+        database.execSQL(deleteQuery);
+    }
+
 
 }
