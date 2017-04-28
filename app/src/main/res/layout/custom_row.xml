@@ -13,7 +13,7 @@
         android:checked="false" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
@@ -48,7 +48,6 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/deleteButton"
         android:src="@android:drawable/ic_menu_delete"
-        android:layout_gravity="right|top"
-        android:onClick="deleteProduct" />
+        android:layout_gravity="right|top" />
 
 </LinearLayout>

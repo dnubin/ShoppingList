@@ -67,6 +67,17 @@ public class AddNewItem extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+
+    @Override
     protected void onStop() {
         super.onStop();
         View view = this.getCurrentFocus();

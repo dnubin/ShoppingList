@@ -107,15 +107,6 @@ public class ProductListAdapter extends BaseAdapter {
                 }
             });
 
-
-        productName.setOnClickListener(new TextView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                productName.setSingleLine(false);
-                notifyDataSetChanged();
-            }
-        });
-
          return v;
     }
 

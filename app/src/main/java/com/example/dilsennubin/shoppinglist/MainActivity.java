@@ -10,8 +10,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private DBHandler myDataBase;
-    private ListView productsListView;
-    private ProductListAdapter adapter;
     private List<Product> myProductsList;
 
     @Override
@@ -44,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayProductsFromDataBase() {
-        adapter = new ProductListAdapter(getApplicationContext(), myProductsList);
-        productsListView = (ListView) findViewById(R.id.shopList);
+        ProductListAdapter adapter = new ProductListAdapter(getApplicationContext(), myProductsList);
+        ListView productsListView = (ListView) findViewById(R.id.shopList);
         if (productsListView != null) {
             productsListView.setAdapter(adapter);
         }
