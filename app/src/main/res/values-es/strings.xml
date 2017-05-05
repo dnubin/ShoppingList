@@ -4,4 +4,8 @@
     <string name="quantity">Cantidad:</string>
     <string name="add_item_to_list">Añadir elemento a la lista</string>
     <string name="add">Añadir</string>
+    <string name="add_item_to_list_edit_button">Salvar</string>
+    <string name="popup_edit_button">Editar</string>
+    <string name="popup_no_button">No</string>
+    <string name="popup_message">¿Desea editar su producto?</string>
 </resources>

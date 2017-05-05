@@ -2,6 +2,10 @@
     <string name="app_name">Lista de cumparaturi</string>
     <string name="type_product_name">Scrie numele produsului</string>
     <string name="quantity">Cantitate:</string>
-    <string name="add_item_to_list">Adauga produsul in lista</string>
+    <string name="add_item_to_list_button">Adauga produsul in lista</string>
+    <string name="add_item_to_list_edit_button">Salveaza</string>
     <string name="add">Adauga</string>
+    <string name="popup_edit_button">Modifica</string>
+    <string name="popup_no_button">Nu</string>
+    <string name="popup_message">Doresti sa modifici produsul?</string>
 </resources>

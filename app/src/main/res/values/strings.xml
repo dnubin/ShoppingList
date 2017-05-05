@@ -2,6 +2,11 @@
     <string name="app_name">Shopping List</string>
     <string name="type_product_name">Type product name</string>
     <string name="quantity">Quantity:</string>
-    <string name="add_item_to_list">Add item to list</string>
+    <string name="add_item_to_list_button">Add item to list</string>
+    <string name="add_item_to_list_edit_button">Save</string>
     <string name="add">ADD</string>
+    <string name="popup_edit_button">Edit</string>
+    <string name="popup_no_button">No</string>
+    <string name="popup_message">Do you want to edit your product?</string>
+
 </resources>

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addButtonClicked(View view) {
         Intent i = new Intent(this, AddNewItem.class);
+        i.putExtra("selectedOption", "add");
         startActivity(i);
     }
 
@@ -63,11 +64,12 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> a, View v, final int position, final long id) {
 
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
-                    alertBuilder.setMessage("Do you want to edit your product?");
+                    alertBuilder.setMessage(R.string.popup_message);
 
-                    alertBuilder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                    alertBuilder.setPositiveButton(R.string.popup_edit_button, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent i = new Intent(getApplicationContext(), EditProduct.class);
+                            Intent i = new Intent(getApplicationContext(), AddNewItem.class);
+                            i.putExtra("selectedOption", "edit");
                             i.putExtra("id", myProductsList.get(position).getId());
                             i.putExtra("name", myProductsList.get(position).getProductName());
                             i.putExtra("quantity", myProductsList.get(position).getQuantity());
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    alertBuilder.setNegativeButton(R.string.popup_no_button, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
